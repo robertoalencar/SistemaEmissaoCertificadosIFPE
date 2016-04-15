@@ -46,7 +46,7 @@
 					</div>
 					<hr />
 					<c:if test="${msg ne null}">
-						<div class="alert alert-error" style="width: 90%;">
+						<div class="alert alert-error" style="width: 100%;">
 							<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 							${msg}
 						</div>

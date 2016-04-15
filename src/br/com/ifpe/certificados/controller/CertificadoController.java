@@ -27,19 +27,26 @@ public class CertificadoController {
 
     @RequestMapping("emitirCertificado")
     public String emitirCertificado(@RequestParam String ano, @RequestParam String evento, @RequestParam String nome,
-	    HttpServletResponse response) throws IOException {
+	    HttpServletResponse response, Model model) throws IOException {
 
 	String nomeComExtensao = nome + "0.pdf";
 
-	String localArquivos = System.getProperty("user.home") + "/Certificados/" + ano + "/" + evento + "/";
+	String localArquivos = "/home/Certificados/" + ano + "/" + evento + "/";
 	File diretorio = new File(localArquivos);
 	File[] listaArquivos = diretorio.listFiles();
+	boolean encontrou = false;
 
 	for (File file : listaArquivos) {
 	    if (nomeComExtensao.trim().toUpperCase().equals(file.getName().trim().toUpperCase())) {
 		System.out.println(file.getName());
 		disponibilizarArquivo(response, localArquivos + file.getName(), nome);
+		encontrou = true;
 	    }
+	}
+
+	if (!encontrou) {
+	    model.addAttribute("msg",
+		    "Não foi encontrato um certificado para o nome informado, verifique os dados e tente novamente.");
 	}
 
 	return "principal/emitirCertificado";
