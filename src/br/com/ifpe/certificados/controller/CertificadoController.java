@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import br.com.ifpe.certificados.util.Util;
 
 /**
+ * Essa classe é responsável para servir de Controller para o sistema de emissão dos certificados
  * @author Roberto Alencar
- *
  */
 @Controller
 public class CertificadoController {
@@ -25,13 +25,29 @@ public class CertificadoController {
 	return "principal/emitirCertificado";
     }
 
+    /**
+     * Método responsável por emitir os certifiacados dos alunos.
+     * 
+     * @param ano
+     * @param evento
+     * @param nome
+     * @param response
+     * @param model
+     * @return o nome da página que será exibida
+     * @throws IOException
+     */
     @RequestMapping("emitirCertificado")
     public String emitirCertificado(@RequestParam String ano, @RequestParam String evento, @RequestParam String nome,
 	    HttpServletResponse response, Model model) throws IOException {
 
 	String nomeComExtensao = nome + "0.pdf";
 
-	String localArquivos = "/home/Certificados/" + ano + "/" + evento + "/";
+	//TODO: URL máquina local
+	String localArquivos = "/home/roberto/Certificados/" + ano + "/" + evento + "/";
+	
+	//TODO: URL Servidor
+//	String localArquivos = "/home/Certificados/" + ano + "/" + evento + "/";
+	
 	File diretorio = new File(localArquivos);
 	File[] listaArquivos = diretorio.listFiles();
 	boolean encontrou = false;
